@@ -34,8 +34,8 @@ if DEBUG:
     ch.setFormatter(formatter)
     root.addHandler(ch)
 
-# Set the expiration for static files to 60 seconds; consider changing this later.
-app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 60; 
+# Set the expiration for static files
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 300; 
 
 # Register path on ws server.
 # app.config["APPLICATION_ROOT"] = APP_ROOT
