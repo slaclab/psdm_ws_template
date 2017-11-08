@@ -16,7 +16,7 @@ PRNT_DIR=`dirname $PWD`
 G_PRNT_DIR=`dirname $PRNT_DIR`;
 GG_PRNT_DIR=`dirname $G_PRNT_DIR`;
 GGG_PRNT_DIR=`dirname $GG_PRNT_DIR`;
-EXTERNAL_CONFIG_FILE="${GGG_PRNT_DIR}/appdata/logbk_batch_mgr/psdm_ws_template_config.sh"
+EXTERNAL_CONFIG_FILE="${GGG_PRNT_DIR}/appdata/psdm_ws_template_config/psdm_ws_template_config.sh"
 
 
 if [[ -f "${EXTERNAL_CONFIG_FILE}" ]]
