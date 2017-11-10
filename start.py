@@ -1,5 +1,6 @@
 from flask import Flask, current_app
 import logging
+import os
 import sys
 import json
 from kafka import KafkaConsumer, TopicPartition
@@ -7,7 +8,7 @@ from threading import Thread
 import eventlet
 import requests
 
-from config import DEBUG, SKIP_KAFKA_CONNECTION, KAFKA_BOOTSTRAP_SERVER
+from config import SKIP_KAFKA_CONNECTION, KAFKA_BOOTSTRAP_SERVER
 from context import app, logbook_db, roles_db, socketio
 
 from pages import pages_blueprint
@@ -21,9 +22,9 @@ __author__ = 'mshankar@slac.stanford.edu'
 # Initialize application.
 app = Flask(__name__)
 app.secret_key = "This is a secret key that is somewhat temporary."
-app.debug = DEBUG
+app.debug = bool(os.environ.get('DEBUG', "False"))
 
-if DEBUG:
+if app.debug:
     print("Sending all debug messages to the console")
     root = logging.getLogger()
     root.setLevel(logging.DEBUG)
@@ -36,9 +37,6 @@ if DEBUG:
 
 # Set the expiration for static files
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 300; 
-
-# Register path on ws server.
-# app.config["APPLICATION_ROOT"] = APP_ROOT
 
 # Register routes.
 app.register_blueprint(pages_blueprint, url_prefix="")

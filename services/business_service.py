@@ -28,8 +28,8 @@ business_service_blueprint = Blueprint('business_service_api', __name__)
 #kafka_producer = KafkaProducer(bootstrap_servers=[KAFKA_BOOTSTRAP_SERVER], value_serializer=lambda m: json.dumps(m).encode('ascii'))
 
 @business_service_blueprint.route("/<instrument_name>/experiments", methods=["GET"])
-#@context.security.authentication_required
-#@context.security.authorization_required("read")
+@context.security.authentication_required
+@context.security.authorization_required("read")
 def svc_get_experiments_for_instrument(instrument_name):
     """
     Get the experiments for an instrument

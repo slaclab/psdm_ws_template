@@ -35,5 +35,5 @@ export ACCESS_LOG_FORMAT='%(h)s %(l)s %({REMOTE_USER}i)s %(t)s "%(r)s" "%(q)s" %
 
 # The exec assumes you are calling this from supervisord. If you call this from the command line; your bash shell is proabably gone and you need to log in.
 exec gunicorn start:app -b 0.0.0.0:5000 --worker-class eventlet --reload \
-       --log-level=DEBUG --capture-output --enable-stdio-inheritance \
+       --log-level=DEBUG --env DEBUG=TRUE --capture-output --enable-stdio-inheritance \
        --access-logfile - --access-logformat "${ACCESS_LOG_FORMAT}" 

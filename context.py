@@ -1,7 +1,7 @@
 from flask_socketio import SocketIO
 from flask_mysql_util import MultiMySQL
-#from psdmauth.auth_client_flask import FlaskSecurityClient
-#from psdmauth.auth_server_dal_db import DatabaseDal
+from flask_mysql_util import MultiMySQL
+from flask_authnz import FlaskAuthnz, MySQLRoles, UserGroups
 
 __author__ = 'mshankar@slac.stanford.edu'
 
@@ -12,7 +12,7 @@ app = None
 socketio = SocketIO()
 # Set up connections to the databases
 logbook_db = MultiMySQL(prefix="LOGBOOK")
-roles_db = MultiMySQL(prefix="ROLES")
 
 # Set up the security manager
-#security = FlaskSecurityClient(DatabaseDal(roles_db), "LogBook")
+roles_db = MultiMySQL(prefix="ROLES")
+security = FlaskAuthnz(MySQLRoles(roles_db, UserGroups()), "LogBook")
