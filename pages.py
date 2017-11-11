@@ -2,6 +2,8 @@ import os
 import json
 import logging
 
+import context
+
 from flask import Blueprint, render_template, send_file, abort
 
 pages_blueprint = Blueprint('pages_api', __name__)
@@ -29,6 +31,11 @@ def send_js(path):
 
 
 @pages_blueprint.route("/experiments/<instrument_id>", methods=["GET"])
-def batch_tabs(instrument_id):
+def exp_ins(instrument_id):
     return render_template("experiments.html", instrument_id=instrument_id)
 
+@pages_blueprint.route("/<experiment_name>/elog", methods=["GET"])
+@context.security.authentication_required
+@context.security.authorization_required("read")
+def exp_elog(experiment_name):
+    return render_template("elog.html", experiment_name=experiment_name)

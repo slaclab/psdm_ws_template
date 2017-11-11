@@ -15,3 +15,14 @@ ORDER BY
     experiment_name
 ;
 """
+
+QUERY_SELECT_ELOG_ENTRIES_FOR_EXPERIMENT = """
+SELECT 
+ e.insert_time DIV 1000000000 AS insert_time, e.author AS author, e.content AS text, e.content_type AS content_type, run.num AS run_num
+FROM       entry e 
+INNER JOIN header h ON e.hdr_id = h.id
+INNER JOIN regdb.experiment exp ON h.exper_id = exp.id AND exp.name = %(experiment_name)s
+LEFT JOIN  run run ON h.run_id = run.id
+WHERE exp.name = 'diadaq13'
+ORDER BY insert_time DESC;
+"""

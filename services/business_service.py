@@ -19,7 +19,7 @@ from kafka.errors import KafkaError
 
 from flask import Blueprint, jsonify, request, url_for, Response
     
-from dal.business_object import get_experiments_for_instrument
+from dal.business_object import get_experiments_for_instrument, get_elog_for_experiment
 
 __author__ = 'mshankar@slac.stanford.edu'
 
@@ -39,4 +39,17 @@ def svc_get_experiments_for_instrument(instrument_name):
     experiments = get_experiments_for_instrument(instrument_name)
 
     return jsonify({'success': True, 'value': experiments})
+
+@business_service_blueprint.route("/<experiment_name>/elog", methods=["GET"])
+@context.security.authentication_required
+@context.security.authorization_required("read")
+def svc_get_elog_for_experiment(experiment_name):
+    """
+    Get the elog for an experiment
+    :param experiment_id - The name of the experiment - diadaq13
+    :return: JSON of the elog entries for an experiment
+    """
+    elogs = get_elog_for_experiment(experiment_name)
+
+    return jsonify({'success': True, 'value': elogs})
 
