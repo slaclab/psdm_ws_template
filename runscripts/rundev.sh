@@ -33,7 +33,9 @@ fi
 # Add a proxy in the wen servce to proxy this port onto the location for this service.
 export ACCESS_LOG_FORMAT='%(h)s %(l)s %({REMOTE_USER}i)s %(t)s "%(r)s" "%(q)s" %(s)s %(b)s %(D)s'
 
+export SERVER_IP_PORT="0.0.0.0:5000"
+
 # The exec assumes you are calling this from supervisord. If you call this from the command line; your bash shell is proabably gone and you need to log in.
-exec gunicorn start:app -b 0.0.0.0:5000 --worker-class eventlet --reload \
+exec gunicorn start:app -b ${SERVER_IP_PORT} --worker-class eventlet --reload \
        --log-level=DEBUG --env DEBUG=TRUE --capture-output --enable-stdio-inheritance \
        --access-logfile - --access-logformat "${ACCESS_LOG_FORMAT}" 

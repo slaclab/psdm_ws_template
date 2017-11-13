@@ -4,7 +4,7 @@ $(function() {
     	var elog_template = `{{#value}}<tr>
     		    <td> {{ insert_time }} </td>
     		    <td> {{ run_num }} </td>
-    		    <td> {{ text }} </td>
+    		    <td> {{ content }} </td>
     		    <td> {{ author }} </td>
     		</tr>{{/value}}`;
 
