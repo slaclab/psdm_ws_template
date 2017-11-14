@@ -12,7 +12,13 @@ var WebSocketConnection = (function(){
     	// ProxyPassReverse /batch_manager_socketio/socket.io/ ws://localhost:5000/socket.io/
 
     	var namespace = '/psdm_ws';
-    	var sockIoPath = app_root_path + "_socketio/socket.io/"; // The final trailing slash is very important....
+    	// Make an assumption that the application is hosted one level down in the web server namespace.
+    	var appRootPath = window.location.pathname.split("/").slice(0,2).join("/")
+    	if (typeof app_root_path != 'undefined') {
+    		console.log("Overriding the socketio root path with app_root_path " + app_root_path);
+    		appRootPath = app_root_path;
+    	}
+    	var sockIoPath = appRootPath + "_socketio/socket.io/"; // The final trailing slash is very important....
     	var scheme = (window.location.protocol == "http:") ? "ws" : "wss";
         console.log("Connecting to socketIO using " + sockIoPath + " using " + scheme);
         var socket = io.connect(scheme + "://" + document.domain + ':' + location.port + namespace, { transports : ['websocket'], 'path': sockIoPath });
