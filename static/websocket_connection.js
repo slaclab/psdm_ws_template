@@ -3,13 +3,11 @@ var WebSocketConnection = (function(){
     	// We use the window.location to compute the location of the socket.io endpoint.
     	// To debug connectivity issues, set localStorage.debug = "*" in the Chrome console before loading this page.
     	// Apache configuration; create separate endpoints for the HTTP and socket.io
-    	// Send any polling transport socket.io calls to http
-    	// RewriteCond %{QUERY_STRING} transport=polling
-    	// RewriteRule "^/batch_manager_socketio/(.*)$" http://localhost:5000/$1 [P]
-    	// ProxyRequests off
-    	// ProxyPass /batch_manager/ http://localhost:5000/
-    	// ProxyPass /batch_manager_socketio/socket.io/ ws://localhost:5000/socket.io/
-    	// ProxyPassReverse /batch_manager_socketio/socket.io/ ws://localhost:5000/socket.io/
+    	//    	<LocationMatch "^/psdm_socketio/(.*)$">
+    	//    	  RequestHeader set REMOTE_USER 'mshankar'
+    	//    	  ProxyPass ws://localhost:5000/$1
+    	//    	  ProxyPassReverse ws://localhost:5000/$1
+    	//    	</LocationMatch>
 
     	var namespace = '/psdm_ws';
     	// Make an assumption that the application is hosted one level down in the web server namespace.
