@@ -40,7 +40,7 @@ def connect():
 
 @socketio.on('join', namespace='/psdm_ws')
 def on_join(experiment_name):
-    if security.__check_privilege_for_experiment('read', experiment_name):
+    if security.check_privilege_for_experiment('read', experiment_name):
         logger.info("User %s joined socketio room for experiment %s" % (security.get_current_user_id(), experiment_name))
         join_room(experiment_name)
     else:
@@ -67,7 +67,8 @@ def sock_send_message_to_client(experiment_name, message_type):
     """
     # Push update only if some clients are connected.
     if manager.clients > 0:
-        socketio.emit(message_type, request.json, namespace='/psdm_ws' , room=experiment_name)
+        request.json['psdm_ws_msg_type'] = message_type;
+        socketio.emit("psdm_ws_msg", request.json, namespace='/psdm_ws' , room=experiment_name)
 
     return jsonify(success=True)
 

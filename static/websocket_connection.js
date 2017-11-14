@@ -35,19 +35,9 @@ var WebSocketConnection = (function(){
             console.log('Disconnecting from websockets at ', sockIoPath);
         });
     
-        socket.on('update_job_status',function(update_msg){
-            console.log("update_job_status",update_msg);
-            update_msg["storedHashes"] = HashCache.storedHashes;
-            Updater.update_job_status(update_msg);
-        });    
-
-        socket.on('status_answer',function(status_msg){
-            console.log(status_msg);
-            Updater.initialize(status_msg);
-        });  
-
-        socket.on('update_run_group_status',function(update_msg){
-            console.log("update_run_group_status",update_msg);
+        socket.on('psdm_ws_msg',function(update_msg){
+            console.log("Message from server; type=" + update_msg['psdm_ws_msg_type']);
+            $(document).trigger(update_msg['psdm_ws_msg_type'], update_msg);
         });    
 
         socket.on('ping', function(resp){
