@@ -4,7 +4,7 @@ var WebSocketConnection = (function(){
     	// To debug connectivity issues, set localStorage.debug = "*" in the Chrome console before loading this page.
     	// Apache configuration; create separate endpoints for the HTTP and socket.io
     	//    	<LocationMatch "^/psdm_socketio/(.*)$">
-    	//    	  RequestHeader set REMOTE_USER 'mshankar'
+    	//    	  RequestHeader set REMOTE_USER %{WEBAUTH_USER}e
     	//    	  ProxyPass ws://localhost:5000/$1
     	//    	  ProxyPassReverse ws://localhost:5000/$1
     	//    	</LocationMatch>
