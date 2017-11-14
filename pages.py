@@ -24,7 +24,7 @@ def send_js(path):
     if os.path.exists(filepath):
         return send_file(filepath)
     else:
-        logger.error("Cannot find static file %s in %s", (path, filepath))
+        logger.error("Cannot find static file %s in %s", path, filepath)
         abort(403)
         return None 
 

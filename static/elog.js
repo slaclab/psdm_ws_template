@@ -16,6 +16,7 @@ $(function() {
         	console.log("Done getting data");
         	var rendered = Mustache.render(elog_template, data);
         	$("#elogs").html(rendered);
+            WebSocketConnection.connect();
         })
         .fail(function (errmsg) {
         	noty( { text: errmsg, layout: "topRight", type: "error" } );

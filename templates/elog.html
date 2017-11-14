@@ -10,14 +10,17 @@
 
     <script type="text/javascript" src="../js/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="../js/mustache/mustache.min.js"></script>
+    <script type="text/javascript" src="../js/socket.io/node_modules/socket.io-client/dist/socket.io.js"></script>
 
     <script type="text/javascript" src="../js/jquery.noty.packaged.js/jquery.noty.packaged.js"></script>
     <script type="text/javascript" src="../js/bootstrap/js/bootstrap.min.js"></script>
+    
+    <script type="text/javascript" src="../static/websocket_connection.js"></script>
     <script type="text/javascript" src="../static/elog.js"></script>
 
     <script type="text/javascript">
-    	var elog_for_experiment_url = "{{ '../ws/business/' + experiment_name + '/elog' }}";
-    	
+		var elog_for_experiment_url = "{{ '../ws/business/' + experiment_name + '/elog' }}";
+		var app_root_path = "/psdm";      	
     	var experiment_name = "{{ experiment_name }}";
     </script>
 </head>

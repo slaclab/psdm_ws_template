@@ -7,7 +7,9 @@ from kafka import KafkaProducer
 from kafka.errors import KafkaError
 from config import SKIP_KAFKA_CONNECTION, KAFKA_BOOTSTRAP_SERVER
 import json
+import logging
 
+logger = logging.getLogger(__name__)
 
 __author__ = 'mshankar@slac.stanford.edu'
 

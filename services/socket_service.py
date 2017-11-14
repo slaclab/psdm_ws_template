@@ -35,6 +35,7 @@ def connect():
     """
     New client connects to the socket.
     """
+    logger.info("New connection attempt")
     manager.clients += 1
 
 @socketio.on('join', namespace='/psdm_ws')
