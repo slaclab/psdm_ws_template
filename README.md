@@ -48,7 +48,8 @@ Now the files
   def svc_add_elog_for_experiment(experiment_name):
   ```
   endpoint allows the following command
-  ```curl -XPOST "http://localhost/psdm/ws/business/diadaq13/elog"
+  ```
+  curl -XPOST "http://localhost/psdm/ws/business/diadaq13/elog"
        -H 'Content-Type: application/json' -d'
        {
          "content" : "Posting a sample elog entry from the command line",
