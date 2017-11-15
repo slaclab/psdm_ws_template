@@ -126,3 +126,29 @@ In your Javascript files, use `console.log` for debug logging. To notify the use
 ```
 noty( { text: errmsg, layout: "topRight", type: "error" } );
 ```
+
+### Debugging websocket configuration
+Websocket is typically routed thru Apache (or another web server) to Python.
+Some tips for making sure everything is set up correctly.
+- First make sure, your application is responding correctly. If your `gunicorn` is listening on port 5000, check the `socket.io` endpoint using
+```
+curl -v -H "Upgrade: WebSocket" -H "Connection: Upgrade" "http://localhost:5000/socket.io/?EIO=3"
+```
+You should see a `HTTP/1.1 200 OK` response from `gunicorn`.
+- Create a separate section in Apache configuration for the socket connections. For example, if your app is served thru `psdm`, create a location for `psdm_socketio` like so
+```
+<LocationMatch "^/psdm_socketio/(.*)$">
+  ... Other configuration like WebAuth headers etc
+  ProxyPass ws://localhost:5000/$1
+  ProxyPassReverse ws://localhost:5000/$1
+</LocationMatch>
+
+```
+- Now test the same URL thru the web server.
+```
+curl -v -H "Upgrade: WebSocket" -H "Connection: Upgrade" "http://localhost/psdm_socketio/socket.io/?EIO=3"
+```
+You should get a proper response from `socket.io`. For example,
+```
+	?0{"sid":"xxx","upgrades":["websocket"],"pingTimeout":60000,"pingInterval":25000}....
+```
