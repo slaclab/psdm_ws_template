@@ -21,6 +21,7 @@ First the folders
 - `services` - This folder contains the Flask web service endpoints for the application.
 - `static` - This folder contains the application specific Javascript and CSS files.
 - `templates` - This folder contains the HTML templates for the UI for the application.
+
 Now the files
 - `dal/business_object.py` - Place all of your business logic in files in the `dal`. For example, the business logic for the `elog` belongs in `dal/elog.py`. The business logic methods typically
   - Take strings, ints and other attribute types as inputs
