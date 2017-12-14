@@ -2,9 +2,10 @@ import json
 import logging
 import os
 
+from pymongo import MongoClient
+
 from flask_mysql_util import MultiMySQL
-from flask_mysql_util import MultiMySQL
-from flask_authnz import FlaskAuthnz, MySQLRoles, UserGroups
+from flask_authnz import FlaskAuthnz, MongoDBRoles, UserGroups
 
 from kafka import KafkaProducer
 from kafka.errors import KafkaError
@@ -20,8 +21,8 @@ app = None
 logbook_db = MultiMySQL(prefix="LOGBOOK")
 
 # Set up the security manager
-roles_db = MultiMySQL(prefix="ROLES")
-security = FlaskAuthnz(MySQLRoles(roles_db, UserGroups()), "LogBook")
+mongorolereaderclient = MongoClient(host="localhost", port=27017, username="roleReader", password="slac123", authSource="admin")
+security = FlaskAuthnz(MongoDBRoles(mongorolereaderclient, UserGroups()), "LogBook")
 
 def __getKafkaProducer():
     if os.environ.get("SKIP_KAFKA_CONNECTION", False):

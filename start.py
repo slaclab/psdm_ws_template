@@ -8,7 +8,7 @@ from threading import Thread
 import eventlet
 import requests
 
-from context import app, logbook_db, roles_db, security
+from context import app, logbook_db, security
 
 from pages import pages_blueprint
 
@@ -45,7 +45,6 @@ app.register_blueprint(business_service_blueprint, url_prefix="/ws/business")
 socket_service.init_app(app, security, kafkatopics = ["elog"])
 
 logbook_db.init_app(app)
-roles_db.init_app(app)
 
 if __name__ == '__main__':
     print("Please use gunicorn for development as well.")
