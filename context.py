@@ -21,7 +21,7 @@ app = None
 logbook_db = MultiMySQL(prefix="LOGBOOK")
 
 # Set up the security manager
-mongorolereaderclient = MongoClient(host="localhost", port=27017, username="roleReader", password="slac123", authSource="admin")
+mongorolereaderclient = MongoClient(host="localhost", port=27017, username="roleReader", authSource="admin") # Add a password argument as well
 security = FlaskAuthnz(MongoDBRoles(mongorolereaderclient, UserGroups()), "LogBook")
 
 def __getKafkaProducer():
